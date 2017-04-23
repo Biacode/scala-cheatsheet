@@ -30,6 +30,11 @@ abs. class, interface (methods, Java 8) | abs. class, trait, (def, var, construc
 -                                       | case object = object + auto-generated code
 -------------------------------------------------------------------------------------
 -                                       | package object
+-------------------------------------------------------------------------------------
+-                                       | var (mutable)
+-------------------------------------------------------------------------------------
+final                                   | val (immutable)
+-------------------------------------------------------------------------------------
 ```
 
 Scala field sugar
@@ -39,3 +44,25 @@ class Person {
 }
 ```
 Public by default. Generates `age()` accessor and `age_$eq` mutator
+
+##### Specific 1
+```scala
+// This will produce compile time error, the class should be abstract
+// In scala fields are not default initialized as in Java
+class Person {
+  var age: Int
+}
+```
+If you want default initialization you sould use `_`\
+So the right one is either
+```scala
+class Person {
+  var age: Int = _
+}
+```
+or make the class abstract
+```scala
+abstract class Person {
+  var age: Int
+}
+```
