@@ -43,7 +43,26 @@ class Person {
   var age: Int = 1
 }
 ```
-Public by default. Generates `age()` accessor and `age_$eq` mutator
+Public by default. Generates `age()` accessor and `age_$eq` mutator\
+The `Java` code below:
+```java
+public class Person {
+    // property
+    private int age = 1;
+    // constructor
+    public Person() {}
+    // getter
+    public int getAge() {
+        return age;
+    }
+    // setter
+    public void setAge(final int age) {
+        this.age = age;
+    }
+}
+```
+Notice that in `Scala` terminology, the `Java` getter is called accessor\
+and the setter is called mutator
 
 ### Specific 1
 ```scala
