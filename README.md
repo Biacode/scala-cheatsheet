@@ -48,7 +48,7 @@ class Person {
   var age: Int = 1
 }
 ```
-Public by default. Generates `age()` accessor and `age_$eq` mutator (Avoid using symbol `$` for naming.)\
+Public by default. Generates `age()` accessor and `age_$eq` mutator (Avoid using symbol `$` for naming)\
 The `Java` code below:
 ```java
 public class Person {
@@ -66,8 +66,7 @@ public class Person {
     }
 }
 ```
-Notice that in `Scala` terminology, the `Java` getter is called accessor\
-and the setter is called mutator
+Notice that in `Scala` terminology, the `Java` getter is called accessor and the setter is called mutator
 
 ### Specific 1
 ```scala
@@ -205,9 +204,9 @@ hello from mutator
 res3: Unit = ()
 ```
 Note. The `age_=` is a method name. But the `JVM` do not allow to do this.\
-After compilation it will take name like `age_$eq`. And here where comes from our _parasites_ :)\
+After compilation it will take name like `age_$eq`. And here where _parasites_ comes from :)\
 Also the `age_=` is recommended way to do that.\
-It's easy to notice that we can not declare both of them `(age_$eq and age_=)` in same class.
+It's easy to notice that we can not declare both of them `age_$eq` and `age_=` in same class.
 
 ### Specific 4
 Assume were writing Scala class which will be used from Java, and we want to keep Java conventions.
@@ -234,7 +233,7 @@ _Method 3_
 import scala.beans.BeanProperty
 class Person(@BeanProperty var age: Int)
 ```
-And welcome back to ugly world of `Java`
+And welcome back to ugly world of Java
 
 ### Specific 5
 Primary constructor (no fields)
@@ -262,8 +261,9 @@ class Person(var age: Int)
 ```
 It also worth to mention that we can have access modifiers as well
 ```scala
-// we have protected class Person
+// here we have
+// protected class Person
 // which has protected constructor
-// which has private field age
-protected class Person protected (private var age: Int)
+// which has private field age, and public field name
+protected class Person protected (private var age: Int, val name: String)
 ```
