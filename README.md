@@ -45,7 +45,7 @@ class Person {
 ```
 Public by default. Generates `age()` accessor and `age_$eq` mutator
 
-##### Specific 1
+### Specific 1
 ```scala
 // This will produce compile time error, the class should be abstract
 // In scala fields are not default initialized as in Java
@@ -66,7 +66,7 @@ abstract class Person {
   var age: Int
 }
 ```
-##### Specific 2
+### Specific 2
 Because of type inference you can write class properties and methods like this
 ```scala
 class Person {
