@@ -204,7 +204,34 @@ res2: Unit = ()
 hello from mutator
 res3: Unit = ()
 ```
-Note. The `age_=` is a method name. But the `JVM` do not allow to do this,\
-so after compilation it will take name like `age_$eq`. And here where comes our parasites :)\
-Also the `age_=` is recommended way.\
-It's easy to say that we can not declare both of them `(age_$eq and age_=)` in same class.
+Note. The `age_=` is a method name. But the `JVM` do not allow to do this.\
+After compilation it will take name like `age_$eq`. And here where comes from our _parasites_ :)\
+Also the `age_=` is recommended way to do that.\
+It's easy to notice that we can not declare both of them `(age_$eq and age_=)` in same class.
+
+### Specific 4
+Assume were writing Scala class which will be used from Java, and we want to keep Java conventions.
+
+_Method 1_
+```scala
+class Person {
+  private [this] var age: Int = _
+
+  def getAge(): Int = this.age
+
+  def setAge(age: Int): Unit = this.age = age
+}
+```
+_Method 2_
+```scala
+import scala.beans.BeanProperty
+class Person {
+  @BeanProperty var age: Int = _
+}
+```
+_Method 3_
+```scala
+import scala.beans.BeanProperty
+class Person(@BeanProperty var age: Int)
+```
+And welcome back to ugly world of `Java`
