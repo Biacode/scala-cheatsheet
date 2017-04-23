@@ -235,3 +235,35 @@ import scala.beans.BeanProperty
 class Person(@BeanProperty var age: Int)
 ```
 And welcome back to ugly world of `Java`
+
+### Specific 5
+Primary constructor (no fields)
+```scala
+class Person(age: Int)
+```
+If we try to access `age` with accessor or mutator we will get compile time error.
+```scala
+val person = new Person(45)
+// accessor
+person.age
+// mutator
+person.age = 15
+```
+Useful if
+```scala
+class Person(_age: Int) {
+  var age: Int = _age
+}
+```
+It's so common that we have following
+```scala
+// var or val, both are acceptable
+class Person(var age: Int)
+```
+It also worth to mention that we can have access modifiers as well
+```scala
+// we have protected class Person
+// which has protected constructor
+// which has private field age
+protected class Person protected (private var age: Int)
+```
