@@ -1,7 +1,7 @@
 ### Tip 1
 Best things that yo can do for you
 * Use byte code viewer
-* Use IntelliJ `Desugar scala code` tool (HotKey - `CTRL+ALT+D`)
+* Use IntelliJ `Desugar scala code` tool HotKey - `CTRL+ALT+D` (you will be surprised)
 
 Scala base OOP components are: `class`, `trait`, `object`
 ```scala
@@ -48,7 +48,7 @@ class Person {
   var age: Int = 1
 }
 ```
-Public by default. Generates `age()` accessor and `age_$eq` mutator\
+Public by default. Generates `age()` accessor and `age_$eq` mutator (Avoid using symbol `$` for naming.)\
 The `Java` code below:
 ```java
 public class Person {
@@ -141,3 +141,70 @@ class Person {
   }
 }
 ```
+### Specific 3
+Make field private\
+_Try 1 (fail try)_
+```scala
+class Person {
+  // will be private mutator and private accessor
+  private var age: Int = _
+}
+```
+_Try 2_
+```scala
+class Person {
+  // no accessor no mutator
+  private[this] var age: Int = _
+}
+```
+_Try 3_
+```scala
+class Person {
+  private[this] var privateAge: Int = _
+
+  // accessor
+  def age: Int = {
+    println("hello from accessor")
+    privateAge
+  }
+
+  // mutator: fieldName_$eq(...)
+  def age_$eq(value: Int): Unit = {
+    println("hello from mutator")
+    privateAge = value
+  }
+}
+```
+Lets write client code for `Try 3`
+```scala
+object Demo extends App {
+  val person = new Person
+  // accessor
+  person.age
+  // mutator
+  person.age = 4
+  // `parasite` mutators
+  person.age_$eq(4)
+  // another `parasite` mutator
+  person.age_=(4)
+}
+```
+The interesting output...
+```
+hello from accessor
+res1: Int = 0
+
+hello from mutator
+hello from accessor
+person.age: Int = 4
+
+hello from mutator
+res2: Unit = ()
+
+hello from mutator
+res3: Unit = ()
+```
+Note. The `age_=` is a method name. But the `JVM` do not allow to do this,\
+so after compilation it will take name like `age_$eq`. And here where comes our parasites :)\
+Also the `age_=` is recommended way.\
+It's easy to say that we can not declare both of them `(age_$eq and age_=)` in same class.
