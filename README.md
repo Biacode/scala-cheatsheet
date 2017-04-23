@@ -1,3 +1,8 @@
+### Tip 1
+Best things that yo can do for you
+* Use byte code viewer
+* Use IntelliJ `Desugar scala code` tool (HotKey - `CTRL+ALT+D`)
+
 Scala base OOP components are: `class`, `trait`, `object`
 ```scala
 class DemoClassA
