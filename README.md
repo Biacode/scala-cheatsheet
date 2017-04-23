@@ -66,3 +66,54 @@ abstract class Person {
   var age: Int
 }
 ```
+##### Specific 2
+Because of type inference you can write class properties and methods like this
+```scala
+class Person {
+  // not recommended
+  // because scala's default access modifier is public
+  // that mean the property is part of public API
+  // and the user of your class should guess (at least read/open class) to work with it
+  val age = 1
+  // not recommended - read reason above
+  def printAge() = {
+      print(age)
+  }
+}
+```
+The recommended way
+```scala
+class Person {
+  val age: Int = 1
+  
+  def printAge(): Unit = {
+      print(age)
+  }
+}
+```
+You can't have `val` and `var` keywords in arguments
+```scala
+class Person  {
+  var age: Int = 10
+  
+  // try to add val or var to `by` argument 
+  def increaseAge(by: Int): Int = {
+    age += by
+    age
+  }
+}
+```
+Scala is `no ceremony` language.\
+Notice in the code above there is no `;` at the end of `age += by` statement\
+and `return` keyword at the end of a `def`\
+In some cases we can avoid even `{}` braces for `def` like `def foo(x) = x + 1`\
+We can rewrite code above like this:
+```scala
+class Person {
+  var age: Int = 10
+  def increaseAge(by: Int): Int = {
+      age += by;
+      return age
+  }
+}
+```
