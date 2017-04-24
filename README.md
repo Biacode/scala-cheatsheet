@@ -340,3 +340,19 @@ println(foo(age = 45, name = "Arthur"))
 |---------------------------------------------------------------------------------------|
 
 ```
+Utility functions/constants
+```scala
+object Demo {
+  import IntLib.max
+  def main(args: Array[String]): Unit = {
+    println(max(7, 3))
+  }
+}
+object IntLib {
+  val MAX_INT = java.lang.Integer.MAX_VALUE
+
+  def max(x: Int, y: Int): Int = if (x > y) x else y
+}
+```
+Notice `max()` function. In Java you would need to `import static IntLib.max`. In scala it's just `import IntLib.max`
+
