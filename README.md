@@ -571,3 +571,66 @@ import java.util.{ArrayList => _, _}
 ```
 Which means import everything from `java.util` excluded `ArrayList`.\
 We can even rename package names and so on...
+
+### Specific 12
+In java we have following overloaded `+` operator:
+```java
+public class DemoApp {
+    public static void main(String[] args) {
+        // overloaded versions of '+' operator
+        String s = "A" + "B";
+        int k = 123 + 456;
+        long l = 12L + 34L;
+        float f = 1.f + 2.f;
+        double d = 1.2 + 3.4;
+    }
+}
+```
+Of course the `String + String` is not same as `int + int`.\
+We can assume that there `+` operator has lot of overloaded versions for different types.\
+For instance. In strings it's often called `concatenation` which concates two string literals etc...\
+In many cases, operators can be:\
+```
+|--------------------------------------------------|
+|prefix `++1` (when operator is before operand)\   |
+|--------------------------------------------------|
+|infix   `1+2` (when operator is between operands) |
+|--------------------------------------------------|
+|postfix `1++` (when operator is after operand)    |
+|--------------------------------------------------|
+```
+In scala we call them `operations`.\
+See [Prefix, Infix, and Postfix Operations](https://www.scala-lang.org/files/archive/spec/2.11/06-expressions.html#prefix-infix-and-postfix-operations)\
+If we try to investigate Scala's scala.Int class, we can find all our known "operators" as method definitions.\
+For instance:
+```scala
+def /(x: Int): Int
+def %(x: Short): Int
+def *(x: Byte): Int
+def -(x: Float): Float
+// ...
+```
+So we can say.\
+1. In scala there is no predefined 38 operators like in Java.
+2. We can "overload operations" as we needed.
+3. Also we can make our "new" operators liek - `<<:><<` (just make sure the guy who will read this can not find you...)
+
+If we try to reflect the class and print the method names.
+```java
+import java.lang.reflect.Method;
+for (final Method method : MainApp.class.getDeclaredMethods()) {
+    System.out.println(method);
+}
+```
+The output will be something like this:
+```
+$plus
+$minus
+$times
+$div
+$bslash
+$colon$colon
+$minus$greater
+$less$tilde
+```
+Because the JVM does not accepts method names with such symbols.
