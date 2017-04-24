@@ -591,13 +591,13 @@ We can assume that there `+` operator has lot of overloaded versions for differe
 For instance. In strings it's often called `concatenation` which concates two string literals etc...\
 In many cases, operators can be:\
 ```
-|--------------------------------------------------|
-|prefix `++1` (when operator is before operand)\   |
-|--------------------------------------------------|
-|infix   `1+2` (when operator is between operands) |
-|--------------------------------------------------|
-|postfix `1++` (when operator is after operand)    |
-|--------------------------------------------------|
+|---------------------------------------------------------|
+| prefix `++1`      | (when operator is before operand)   |
+|-------------------|-------------------------------------|
+| infix   `1+2`     | (when operator is between operands) |
+|-------------------|-------------------------------------|
+| postfix `1++`     | (when operator is after operand)    |
+|---------------------------------------------------------|
 ```
 In scala we call them `operations`.\
 See [Prefix, Infix, and Postfix Operations](https://www.scala-lang.org/files/archive/spec/2.11/06-expressions.html#prefix-infix-and-postfix-operations)\
