@@ -613,7 +613,7 @@ def -(x: Float): Float
 So we can say.
 1. In scala there is no predefined 38 operators like in Java.
 2. We can "overload operations" as we needed.
-3. Also we can make our "new" operators liek - `<<:><<` (just make sure the guy who will read this can not find you...)
+3. Also we can make our "new" operators like - `<<:><<` (just make sure the guy who will read this can not find you...)
 
 If we try to reflect the class and print the method names.
 ```java
