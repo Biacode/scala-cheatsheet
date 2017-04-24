@@ -530,4 +530,44 @@ val person = new Person
 println(person.age)
 ```
 Notice that the client code will not crush, and everything works as expected.
-For example we can use cached value of `age` etc...
+For example we can return cached value of `age` computation etc...
+
+### Specific 11
+Imports.\
+What is really make me happy in scala, is imports. There is various ways to import `components` in scala:
+```scala
+import java.util.ArrayList
+import java.util.{HashMap, TreeSet}
+import java.util._
+```
+The last one analog in java is `import java.util.*`.\
+And finally the feature we're really missing in Java is aliasing, or let's call it rename.
+```scala
+import java.lang.Double.{isInfinite => isInf, isNaN}
+```
+Here the `isInfinite` will be renamed to `isInf`.\
+We can apply same aliasing to classes, traits etc...\
+Also we can use `import` in any scope. For instance:
+```scala
+def foo(): Unit = {
+  import java.util.ArrayList
+  println("boo")
+}
+```
+We can do even this:
+```scala
+class Person(val name: String, val age: Int)
+
+object Demo {
+  def f(person: Person): Unit = {
+    import person._
+    println("name: " + name + " age: " + age)
+  }
+}
+```
+Also this:
+```scala
+import java.util.{ArrayList => _, _}
+```
+Which means import everything from `java.util` excluded `ArrayList`.\
+We can even rename package names and so on...
