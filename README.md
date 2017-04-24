@@ -453,3 +453,31 @@ MyClass().THE_STATIC_PROPERTY
 ```
 And the Java compiler can not assume which property we calling (in case of `new MyClass().THE_STATIC_PROPERTY`).\
 But this is just language dessign and nothing else. The static properties and instance properties has their own memory location, which is separate.
+
+### Specific 9
+You can not use object name as type:
+```scala
+trait T
+class C
+object O
+
+val x: T = null
+val y: C = null
+val z: O = null // Illegal
+val w: O.type = null
+
+def f(x: T): T = ???
+def g(x: C): C = ???
+def h(x: O): O = ??? // Illegal
+def q(x: O.type): O.type = ???
+
+def r(arg: Any): String = arg match {
+  case _: T => "T"
+  case _: C => "C"
+  case _: O => "O" // Illegal
+  case _: O.type => "O"
+}
+```
+In example above the `val z: O = null`, `def h(x: O): O = ???` and `case _: O => "O"` are illegal.
+Since the objects are not types itself. If we want to use them as type, we should use `Object.type` construction.\
+We can have constructions like `case O => "O"` which is fullly acceptable.
