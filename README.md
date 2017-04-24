@@ -483,7 +483,7 @@ Since the objects are not types itself. If we want to use them as type, we shoul
 We can have constructions like `case O => "O"` which is fullly acceptable.
 
 ### Specific 10
-Methods: Parentless
+Methods - with and without parenthesis:
 ```scala
 class Demo {
   def f0 = 1
@@ -589,7 +589,7 @@ public class DemoApp {
 Of course the `String + String` is not same as `int + int`.\
 We can assume that there `+` operator has lot of overloaded versions for different types.\
 For instance. In strings it's often called `concatenation` which concates two string literals etc...\
-In many cases, operators can be:\
+In many cases, operators can be:
 ```
 |---------------------------------------------------------|
 | prefix `++1`      | (when operator is before operand)   |
@@ -610,7 +610,7 @@ def *(x: Byte): Int
 def -(x: Float): Float
 // ...
 ```
-So we can say.\
+So we can say.
 1. In scala there is no predefined 38 operators like in Java.
 2. We can "overload operations" as we needed.
 3. Also we can make our "new" operators liek - `<<:><<` (just make sure the guy who will read this can not find you...)
