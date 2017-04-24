@@ -340,6 +340,7 @@ println(foo(age = 45, name = "Arthur"))
 |---------------------------------------------------------------------------------------|
 
 ```
+Note: The companion object should be at the same file with companion class or trait.\
 Utility functions/constants
 ```scala
 object Demo {
