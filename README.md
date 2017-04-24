@@ -394,3 +394,62 @@ final JPerson person0 = new JPerson("Mike", 45);
 final JPerson person1 = JPerson.JPerson("Mike", 45);
 final JPerson person2 = JPerson("Mike", 45);
 ```
+The visibility:
+```scala
+// companion class - can see private `objectPrivate` of companion object
+class PrivateDemo {
+  private val classPrivate = 0
+  val tmp: Int = PrivateDemo.objectPrivate
+}
+
+// companion object - can see private `classPrivate` of companion class
+object PrivateDemo {
+  private val objectPrivate = 0
+  val tmp: Int = new PrivateDemo().classPrivate
+}
+```
+### Specific 8
+What is interesting in scala that we can do following:
+```scala
+// companion class
+class Person {
+  val name: String = _
+  val age: Int = _
+
+  def getName: String = this.name
+}
+
+// companion object
+object Person {
+  val name: String = _
+  val age: Int = _
+
+  def getName: String = this.name
+}
+```
+Which alternative in scala is:
+```java
+public class JPerson {
+    public final String name;
+    public final int age;
+
+    public static final String name;
+    public static final int age;
+
+    public JPerson(final String name, final int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+```
+Which will throw compile time exception like - variable name is already defined in scope blah blah...\
+I guess it's mainly because we can access the class static properties either:
+```java
+new MyClass().THE_STATIC_PROPERTY
+```
+and/or
+```java
+MyClass().THE_STATIC_PROPERTY
+```
+And the Java compiler can not assume which property we calling (in case of `new MyClass().THE_STATIC_PROPERTY`).\
+But this is just language dessign and nothing else. The static properties and instance properties has their own memory location, which is separate.
