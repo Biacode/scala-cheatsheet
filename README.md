@@ -357,3 +357,40 @@ object IntLib {
 ```
 Notice `max()` function. In Java you would need to `import static IntLib.max`. In scala it's just `import IntLib.max`
 
+If in companion object we have method called `apply`, and the `apply` method returns companion class instance, then we have following syntax sugar.
+```scala
+class Person(val name: String, val age: Int)
+
+object Person {
+  def apply(name: String, age: Int): Person = {
+    new Person(name, age)
+  }
+}
+
+var personWithoutSugar1 = new Person("Mike", 45)
+var personWithoutSugar2 = Person.apply("Mike", 45)
+val personWithSugar = Person("Mike", 45)
+```
+The Java alternative could be:
+```java
+package com.biacode.scala_cheatsheet;
+import static com.biacode.scala_cheatsheet.JPerson.JPerson;
+
+public class JPerson {
+    public final String name;
+    public final int age;
+
+    public JPerson(final String name, final int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public static JPerson JPerson(final String name, final int age) {
+        return new JPerson(name, age);
+    }
+}
+
+final JPerson person0 = new JPerson("Mike", 45);
+final JPerson person1 = JPerson.JPerson("Mike", 45);
+final JPerson person2 = JPerson("Mike", 45);
+```
