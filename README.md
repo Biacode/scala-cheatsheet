@@ -92,7 +92,7 @@ abstract class Person {
 }
 ```
 ### Specific 2
-Because of type inference you can write class properties and methods like this
+Because of type inference we can write class properties and methods like this
 ```scala
 class Person {
   // not recommended
@@ -116,7 +116,7 @@ class Person {
   }
 }
 ```
-You can't have `val` and `var` keywords in arguments
+We can't have `val` and `var` keywords in arguments. Also we can't infer the method argument types.
 ```scala
 class Person  {
   var age: Int = 10
@@ -481,3 +481,53 @@ def r(arg: Any): String = arg match {
 In example above the `val z: O = null`, `def h(x: O): O = ???` and `case _: O => "O"` are illegal.
 Since the objects are not types itself. If we want to use them as type, we should use `Object.type` construction.\
 We can have constructions like `case O => "O"` which is fullly acceptable.
+
+### Specific 10
+Methods: Parentless
+```scala
+class Demo {
+  def f0 = 1
+
+  def f1: Int = 1
+
+  def g0() = 1
+
+  def g1(): Int = 1
+}
+
+new Demo().f0
+new Demo().f0() // Illegal
+
+new Demo().g0
+new Demo().g0()
+```
+In example above, we can say `f0 = f1` and `g0 = g1` but `{f0, f1} != {g0, g1}`.
+The `new Demo().f0()` expression is illegal.
+
+Read the [Uniform access principle](https://en.wikipedia.org/wiki/Uniform_access_principle)
+and [Scala Glossary](http://docs.scala-lang.org/glossary/?_ga=1.169830245.530428506.1486141446#uniform-access-principle) for more details.
+
+In short. Suppose we have class person, which has property `age` like in example below:
+```scala
+class Person {
+  var age: Int = 45
+}
+
+val person = new Person
+println(person.age)
+```
+If some day we decide to make `age` computable and not just stored value, we can simple replace `var` with `def`:
+```scala
+class Person {
+  def age: Int = {
+    val x = 44
+    val y = x + 1
+    y
+  }
+}
+
+val person = new Person
+println(person.age)
+```
+Notice that the client code will not crush, and everything works as expected.
+For example we can use cached value of `age` etc...
