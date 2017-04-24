@@ -267,3 +267,58 @@ It also worth to mention that we can have access modifiers as well
 // which has private field age, and public field name
 protected class Person protected (private var age: Int, val name: String)
 ```
+
+### Specific 6
+Auxiliary constructors
+```scala
+// primary constructor
+class Person(var name: String, var age: Int) {
+  // auxiliary 1
+  def this(name: String) {
+    this(name, Person.DEFAULT_AGE)
+  }
+  // auxiliary 2
+  def this(age: Int) {
+    this(Person.DEFAULT_NAME, age)
+  }
+  // auxiliary 3
+  def this() {
+    this(Person.DEFAULT_NAME, Person.DEFAULT_AGE)
+    // also we can call this(Person.DEFAULT_AGE) which will call primary constructor
+  }
+}
+// companion object of class Person
+object Person {
+  val DEFAULT_NAME = "Arthur"
+  val DEFAULT_AGE = 45
+}
+
+def main(args: Array[String]): Unit = {
+  val person = new Person()
+  person.name
+  person.age
+}
+```
+Here the `object Person` is called companion object which is constant holder in out case.\
+We can not avoid primary constructor call.
+
+For this common construction we can:
+```scala
+// default parameters
+class Person(var name: String = "Arthur", var age: Int = 45)
+
+new Person("Vasya")
+new Person(age = 15)
+new Person("Vasya", 15)
+new Person(age = 15, name = "Vasya")
+new Person()
+```
+Notice the `new Person(age = 15, name = "Vasya")` so we can call constructors and methods in any order, just by mentioning the parameter name.\
+This is called `named parameters`.
+```scala
+def foo(name: String, age: Int): String = {
+  s"name = $name, age = $age"
+}
+
+println(foo(age = 45, name = "Arthur"))
+```
