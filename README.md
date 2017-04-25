@@ -1,5 +1,5 @@
 ### Tip 1
-Best things that yo can do for you
+Best thing that yo can do for you is:
 * Use byte code viewer
 * Use IntelliJ `Desugar scala code` tool.
 
