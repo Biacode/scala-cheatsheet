@@ -1,7 +1,7 @@
 ### Tip 1
 Best things that yo can do for you
 * Use byte code viewer
-* Use IntelliJ `Desugar scala code` tool HotKey - `CTRL+ALT+D` (you will be surprised)
+* Use IntelliJ `Desugar scala code` tool.
 
 Scala base OOP components are: `class`, `trait`, `object`
 ```scala
@@ -43,6 +43,12 @@ Some basic differences between Java
 | final                                   | val (immutable)                             |
 |---------------------------------------------------------------------------------------|
 ```
+In general, `Scala` programming language mostly based on syntax sugar.\
+For example there is no "real" functions, scala has `Function1` which accepts 1 argument,
+`Function2` with 2 arguments and so on... Until `Function22`.\
+Same situation with tuples `Tuple1`, `Tuple2`, ..., `Tuple22`.\
+Of course this is expected behavior, and there is no magic...
+At the end of the day it compiles to `Bytecode` which execution platform is `JVM`.
 
 Scala field sugar
 ```scala
