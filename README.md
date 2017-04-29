@@ -695,7 +695,7 @@ val f3: Int => Int = 1 + _
 val f4: Int => Int = 1 +
 ```
 ### Specific 14
-We have nice operator precedence in scala. For instance:
+Operator precedence in scala.
 ```scala
 case class I(k: Int) {
   def add(that: I): I = I(this.k + that.k)
@@ -745,3 +745,41 @@ Even though the scala `point less` and `infix form` calls are left associative t
 
 For more details please read
 [scala specification about infix operations](https://www.scala-lang.org/files/archive/spec/2.11/06-expressions.html#infix-operations)
+### Specific 15
+Operator associativity in scala.
+
+In [infix operations specification](https://www.scala-lang.org/files/archive/spec/2.11/06-expressions.html#infix-operations)
+page we can see
+> The associativity of an operator is determined by the operator's last character. Operators ending in a colon `:' are right-associative. All other operators are left-associative.
+
+In two words we cab say. If the priority is about first symbol, the associativity is about last symbol of infix operation.
+If last character of operation ending with a `:` then we have right association. Anything else is left associative.
+```scala
+case class I(k: Int) {
+  def ++(that: I): I = I(this.k + that.k)
+
+  def +:(that: I): I = I(this.k + that.k)
+}
+
+// 1 ++ 2 ++ 3 ++ 4
+// ((1 ++ 2) ++ 3) ++ 4
+println(I(1) ++ I(2) ++ I(3) ++ I(4))
+
+// 1 +: 2 +: 3 +: 4
+// 1 +: (2 +: (3 +: 4))
+println(I(1) +: I(2) +: I(3) +: I(4))
+```
+If you are nerd enough and have reade the this part of specification.
+>A left-associative binary operation e1;op;e2e1;op;e2 is interpreted as e1.op(e2)e1.op(e2). If opop is right-associative, the same operation is interpreted as { val xx=e1e1; e2e2.opop(xx) }, where xx is a fresh name.
+```scala
+// 1 ++ 2 ++ 3 ++ 4
+// ((1 ++ 2) ++ 3) ++ 4
+println(I(1) ++ I(2) ++ I(3) ++ I(4))
+println(I(1).++(I(2)).++(I(3)).++(I(4)))
+
+// 1 +: 2 +: 3 +: 4
+// ((4 +: 3) +: 2) +: 1
+println(I(1) +: I(2) +: I(3) +: I(4))
+println(I(4).+:(I(3).+:(I(2) +: I(1))))
+```
+Again, do this only if you are sure if you are too far from a guy who will read your code.
