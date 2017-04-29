@@ -909,3 +909,67 @@ As you may guess we can fix `x2` or `x3` if we put parenthesis. For example:
 val x2: Int +: (String ** Boolean) = ???
 val x3: (Int ++ String) *: Boolean = ???
 ```
+
+### Specific 17
+Prefix operator is the operator which located before it's operand `+ A`. And in general may have any number of arity _(Polish notation)_.
+
+But in scala we have only 4 possible prefix operators.
+```
++ - ! ~
+```
+And can have only one arity.
+```scala
+case class I(k: Int) {
+  def unary_+(): I = I(2 * this.k)
+
+  def unary_-(): I = I(3 * this.k)
+
+  def unary_!(): I = I(4 * this.k)
+
+  def unary_~(): I = I(5 * this.k)
+}
+
+val x0 = +I(0)
+val x1 = -I(0)
+val x2 = !I(0)
+val x3 = ~I(0)
+
+val y0 = I(0).unary_+()
+val y1 = I(0).unary_-()
+val y2 = I(0).unary_!()
+val y3 = I(0).unary_~()
+
+val z0 = +I(0).unary_+()
+val z1 = -I(0).unary_-()
+val z2 = !I(0).unary_!()
+val z3 = ~I(0).unary_~()
+```
+After compilation the `unary_+()` will be renamed to `unary_$plus()` and so on.
+
+For postfix operators:
+```scala
+case class I(k: Int) {
+  def +(): I = I(2 * this.k)
+
+  def -(): I = I(3 * this.k)
+
+  def !(): I = I(4 * this.k)
+
+  def ~(): I = I(5 * this.k)
+}
+
+val x0 = I(0)+
+val x1 = I(0)-
+val x2 = I(0)!
+val x3 = I(0)~
+
+val y0 = I(0).+()
+val y1 = I(0).-()
+val y2 = I(0).!()
+val y3 = I(0).~()
+
+val z0 = I(0) +()
+val z1 = I(0) -()
+val z2 = I(0) !()
+val z3 = I(0) ~()
+```
