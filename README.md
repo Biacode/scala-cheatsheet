@@ -640,3 +640,57 @@ $minus$greater
 $less$tilde
 ```
 Because the JVM does not accepts method names with such symbols.
+
+### Specific 13
+In scala, method calls that contains only 1 arity can be called as infix form with `pointless style`.
+```scala
+case class I(k: Int) {
+  def add(that: I): I = I(this.k + that.k)
+
+  def +(that: I): I = I(this.k + that.k)
+}
+
+val x0 = I(1).add(I(2))
+val x1 = I(1) add I(2) // pointless
+val x2 = I(1).+(I(2))
+val x3 = I(1) + I(2) // pointless
+```
+In scala standard lib you can see a lot of examples of this semantics. For instance:
+```scala
+1.to(10)
+1 to 10 // pointless infix form
+
+for (k <- 1 to 10) {
+  println(s"k = $k")
+}
+```
+or
+```scala
+var map0 = Map("France" -> "Paris")
+map0 += "Japan" -> "Tokyo" // pointless
+
+var map1: Map[String, String] = Map.apply(new ArrowAssoc("France").->("Paris"))
+map1.+=(new ArrowAssoc("Japan").->("Tokyo"))
+```
+NOTE: The `pointless style` is not same as `point free style` which is widely used in functional programming languages.\
+In point free style we're not using arguments at all.
+```scala
+val cos: Double => Double = Math.cos
+val sin: Double => Double = Math.sin
+
+val f: Double => Double = x => cos(sin(x))
+val g: Double => Double = cos compose sin // point free style
+```
+or
+```scala
+// not pointless, not point free
+val f0: Int => Int = x => 1.+(x)
+// pointless, not point free
+val f1: Int => Int = x => 1 + x
+// not pointless, point free
+val f2: Int => Int = 1.+(_)
+// pointless, point free with placeholder
+val f3: Int => Int = 1 + _
+// pointless, point free without placeholder
+val f4: Int => Int = 1 +
+```
