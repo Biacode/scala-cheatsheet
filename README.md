@@ -818,4 +818,94 @@ If you'l tried to test code above, then you will notice that
 * Can mix diff precedence and diff assoc (left + right)
 * Can **NOT** mix same precedence and diff assoc (left and/or right)
 
-Again, do this only if you are sure if you too far from a guy who will read your code.
+Again, do this only if you are sure that you too far from a guy who will read your code.
+
+### Specific 16
+From [Infix Types](https://www.scala-lang.org/files/archive/spec/2.11/03-types.html#infix-types) specification.
+```scala
+// ab, ++ = type constructor
+// (type constructor ab) + (type A) + (type B) => type ab[A, B] == type A ab B
+case class ab[A, B](a: A, b: B)
+// (type constructor ++) + (type A) + (type B) => type ++[A, B] == type A ++ B
+case class ++[A, B](a: A, b: B)
+
+val x0: ab[Int, String] = ???
+val x1: Int ab String = ???
+
+val y0: ++[Int, String] = ???
+val y1: Int ++ String = ???
+
+val y2: List[Int ++ String] = ???
+
+class X extends (Int ++ String)
+
+val f: Int ++ String => String ++ Int = ???
+```
+The `case class ab[A, B](a: A, b: B)` and the `case class ++[A, B](a: A, b: B)` are called type constructors. 
+>All type infix operators have the same precedence;
+parentheses have to be used for grouping.
+The associativity of a type operator is determined as for term operators:
+type operators ending in a colon ‘:’ are right-associative; all other operators are left-associative.
+
+```scala
+// type constructors
+case class ++[A, B](a: A, b: B)
+
+case class **[A, B](a: A, b: B)
+
+// no precedence
+val x0: Int ++ String ** Boolean = ???
+val x1: **[++[Int, String], Boolean] = x0
+
+// with parenthesis precedence
+val y0: Int ++ (String ** Boolean) = ???
+val y1: ++[Int, **[String, Boolean]] = y0
+```
+If the last symbol of type constructor is `:` it's still have some magic on association, but does not swaps right to left.
+```scala
+// type constructors
+case class ++[A, B](a: A, b: B)
+
+case class ::[A, B](a: A, b: B)
+
+val x0: Int ++ String = ??? // Int ++ String == ++[Int, String]
+val x1: Int :: String = ??? // Int :: String != ::[String, Int]
+
+val y0: Int = x0.a
+val y1: Int = x1.a // NOT string!
+```
+But affecting association
+```scala
+val x0: Int ++ String ++ Boolean = ???
+val x1: ++[++[Int, String], Boolean] = x0
+
+val a0: ++[Int, String] = x0.a
+val a1: Boolean = x0.b
+
+val y0: Int :: String :: Boolean = ???
+val y1: ::[Int, ::[String, Boolean]] = y0
+
+val b0: Int = y0.a
+val b1: ::[String, Boolean] = y0.b
+```
+Because all type constructors have same precedence, then we can not mix type constructors with different associations.
+```scala
+// type constructors
+case class ++[A, B](a: A, b: B)
+
+case class **[A, B](a: A, b: B)
+
+case class +:[A, B](a: A, b: B)
+
+case class *:[A, B](a: A, b: B)
+
+val x0: Int ++ String ** Boolean = ???
+val x1: Int +: String *: Boolean = ???
+val x2: Int +: String ** Boolean = ??? // error
+val x3: Int ++ String *: Boolean = ??? // error
+```
+As you may guess we can fix `x2` or `x3` if we put parenthesis. For example:
+```scala
+val x2: Int +: (String ** Boolean) = ???
+val x3: (Int ++ String) *: Boolean = ???
+```
