@@ -694,3 +694,54 @@ val f3: Int => Int = 1 + _
 // pointless, point free without placeholder
 val f4: Int => Int = 1 +
 ```
+### Specific 14
+We have nice operator precedence in scala. For instance:
+```scala
+case class I(k: Int) {
+  def add(that: I): I = I(this.k + that.k)
+
+  def mul(that: I): I = I(this.k * that.k)
+}
+
+// 1 add 2 mul 3 = 1 + 2 * 3 = 7
+println(I(1) add I(2) mul I(3))
+// (1 add 2) mul 3 = (1 + 2) * 3 = 9
+println((I(1) add I(2)) mul I(3))
+// 1 add (2 mul 3) = 1 + (2 * 3)
+println(I(1) add (I(2) mul I(3)))
+```
+As you can see we have problem in `println(I(1) add I(2) mul I(3))` which returns `9` and not `7` as we expected.
+
+We have several ways to fix this.\
+First:
+ ```scala
+//NOT recommended
+println(I(1) add I(2).mul(I(3)))
+// recommended
+println(I(1).add(I(2) mul I(3)))
+```
+In scala method calls with `.` dot has more priority relatively to infix calls.
+Which means in `println(I(1) add I(2).mul(I(3)))` example `I(2).mul(I(3))` will be called first,
+and then the result will be applied to `I(1) add ...`. But using this is not recommended,
+because it's hard for your code users to read and understand it. It's not really natural.
+
+So what is really best solution for this?
+As you already may guess, scala solves this problems in mathematical manner as well.
+```scala
+case class I(k: Int) {
+  def add(that: I): I = I(this.k + that.k)
+  def mul(that: I): I = I(this.k * that.k)
+
+  def +(that: I): I = I(this.k + that.k)
+  def *(that: I): I = I(this.k * that.k)
+}
+
+// 1 add 2 mul 3 => (1 add 2) mul 3
+println(I(1) add I(2) mul I(3)) // res = 9
+// 1 + 2 * 3 => 1 + (2 * 3)
+println(I(1) + I(2) * I(3)) // res = 7
+```
+Even though the scala `point less` and `infix form` calls are left associative the priority of predefined symbols are differs.
+
+For more details please read
+[scala specification about infix operations](https://www.scala-lang.org/files/archive/spec/2.11/06-expressions.html#infix-operations)
