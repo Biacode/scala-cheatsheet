@@ -782,4 +782,40 @@ println(I(1).++(I(2)).++(I(3)).++(I(4)))
 println(I(1) +: I(2) +: I(3) +: I(4))
 println(I(4).+:(I(3).+:(I(2) +: I(1))))
 ```
-Again, do this only if you are sure if you are too far from a guy who will read your code.
+If operators are consecutive infix operations with same precedence operators,
+then all these operators must have same associativity.
+```scala
+case class I(k: Int) {
+  def ++(that: I): I = I(this.k + that.k)
+  def +:(that: I): I = I(this.k + that.k)
+
+  def **(that: I): I = I(this.k * that.k)
+  def *:(that: I): I = I(this.k * that.k)
+}
+
+// diff precedence, same assoc (left)
+// (1 ++ (2 ** 3)) ++ 4
+println(I(1) ++ I(2) ** I(3) ++ I(4))
+
+// diff precedence, same assoc (right)
+// ((3 *: 2) +: 4) +: 1
+println(I(1) +: I(2) *: I(3) +: I(4))
+
+// diff precedence, diff assoc (left + right)
+// ((3 *: 2) ++ 1 ++ 4)
+println(I(1) ++ I(2) *: I(3) ++ I(4))
+
+// same precedence, diff assoc (left + right)
+// error - we can not mix left and right assoc with same precedence
+println(I(1) ++ I(2) +: I(3) ++ (I(4)))
+// same precedence, diff assoc (left + right)
+// error - we can not mix left and right assoc with same precedence
+println(I(1) ** I(2) *: I(3) ** (I(4)))
+```
+If you'l tried to test code above, then you will notice that
+* Can mix diff precedence and same assoc (right)
+* Can mix diff precedence and same assoc (left)
+* Can mix diff precedence and diff assoc (left + right)
+* Can **NOT** mix same precedence and diff assoc (left and/or right)
+
+Again, do this only if you are sure if you too far from a guy who will read your code.
