@@ -1021,3 +1021,7 @@ primitive values and reference values.
 There are four kind of reference types: class types, interface types, type variables and array types.
 
 There is also a special null type, the type of expression null, which has no name.
+Because the null type has no name, it is impossible to declare a variable of the null type or to cast to the null type.
+The null type has one value, the null reference, represented by _null literal_ `null`.
+A null literal is always of the null type.
+The direct supertype of null type are all reference types other than the null type itself.
