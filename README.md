@@ -973,3 +973,51 @@ val z1 = I(0) -()
 val z2 = I(0) !()
 val z3 = I(0) ~()
 ```
+
+### Specific 18
+Scala is pure object-oriented language. Every value is an object.\
+Scala is functional language because every function is a value.
+
+In genera, in computer science there is some terms describing programming languages as well as paradigms.
+
+In scala terms we have
+```
+Kind, Type, Class, Object, Value, Function etc...
+```
+We can compress those terms to `class`, `type`, `kind`.
+
+`class` is a template for building objects.
+In scala the classes can be `class`, `trait`, `object`, `array`.
+In java `class`, `interface`, `array`.
+
+The `type` is a bit complicated.
+But in general, the type is set of operations on parts of memory, module, expression, variable etc...
+
+The `kind` is a type of a type, or meta type.
+
+Almost in evey programming language,
+the class has type or family of types, in many cases infinite number of sub types (generics for example).
+But there is some types, which has no class.
+
+In java specification 8.1 Class declarations.
+>A class declaration specifies a new named reference type.
+
+And later fixes this thesis like.
+>A generic class declaration defines a set of parametrized types,
+one for each possible parametrization of the type parameter section by type arguments.
+All of these parametrized types share the same class at runtime.
+
+Same situation with `interfaces` specification 9.1.
+
+From java specification.
+The java programming language is statically typed language,
+which means that every variable and every expression has a type that is known at compile time.
+
+There are two kinds of types in the java programming language: primitive types and reference types.
+There are, correspondingly,
+two kinds of data values that can be stored in variables, passed as arguments, returned by methods, and operated on:
+primitive values and reference values.
+
+There are four kind of reference types: class types, interface types, type variables and array types.
+
+There is also a special null type, the type of expression null, which has no name.
