@@ -978,7 +978,7 @@ val z3 = I(0) ~()
 Scala is pure object-oriented language. Every value is an object.\
 Scala is functional language because every function is a value.
 
-In genera, in computer science there is some terms describing programming languages as well as paradigms.
+In general, in computer science there is some terms describing programming languages as well as paradigms.
 
 In scala terms we have
 ```
@@ -1027,3 +1027,5 @@ A null literal is always of the null type.
 The direct supertype of null type are all reference types other than the null type itself.
 
 ![alt text](https://raw.githubusercontent.com/Biacode/scala-cheatsheet/master/img/java_types.png "Java types diagram")
+
+Our custom type should be something in between reference types and null type.
