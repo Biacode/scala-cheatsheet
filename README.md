@@ -1025,3 +1025,5 @@ Because the null type has no name, it is impossible to declare a variable of the
 The null type has one value, the null reference, represented by _null literal_ `null`.
 A null literal is always of the null type.
 The direct supertype of null type are all reference types other than the null type itself.
+
+![alt text](https://raw.githubusercontent.com/Biacode/scala-cheatsheet/master/img/java_types.png "Java types diagram")
