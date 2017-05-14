@@ -316,21 +316,14 @@ def foo(name: String, age: Int): String = {
 println(foo(age = 45, name = "Arthur"))
 ```
 ### Specific 7
-```
 
-|---------------------------------------------------------------------------------------|
 | Scala objects                       | Java static                                     |
-|---------------------------------------------------------------------------------------|
+| --- | --- |
 | companion object = companion module | class static members (Person.MAX_AGE)           |
-|---------------------------------------------------------------------------------------|
 | single object (not companion)       | utility functions/constants (Math.sin, Math.PI) |
-|---------------------------------------------------------------------------------------|
 | singleton                           | -                                               |
-|---------------------------------------------------------------------------------------|
 | package object                      | -                                               |
-|---------------------------------------------------------------------------------------|
 
-```
 Note: The companion object should be at the same file with companion class or trait.\
 Utility functions/constants
 ```scala
@@ -581,15 +574,13 @@ Of course the `String + String` is not same as `int + int`.\
 We can assume that there `+` operator has lot of overloaded versions for different types.\
 For instance. In strings it's often called `concatenation` which concates two string literals etc...\
 In many cases, operators can be:
-```
-|---------------------------------------------------------|
+
+| Operation | Description |
+| --- | --- |
 | prefix `++1`      | (when operator is before operand)   |
-|-------------------|-------------------------------------|
 | infix   `1+2`     | (when operator is between operands) |
-|-------------------|-------------------------------------|
 | postfix `1++`     | (when operator is after operand)    |
-|---------------------------------------------------------|
-```
+
 In scala we call them `operations`.\
 See [Prefix, Infix, and Postfix Operations](https://www.scala-lang.org/files/archive/spec/2.11/06-expressions.html#prefix-infix-and-postfix-operations)\
 If we try to investigate Scala's scala.Int class, we can find all our known "operators" as method definitions.\
