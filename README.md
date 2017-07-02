@@ -1012,3 +1012,16 @@ Which is drastically differs from the Java types. <br/>
 The diagram below shows hierarchy of the scala types.
 
 ![alt text](https://raw.githubusercontent.com/Biacode/scala-cheatsheet/master/img/scala_types.png "Scala types diagram")
+
+We can compare value types as Java primitives and reference types. <br/>
+In terms of methods. I think it can be more less wrong to say they have their own memory.
+Methods are part of object, and the object has it's own allocated memory.
+Of course in runtime we have stack allocation which lives as long as the stack frame which owns that method call.
+But it's different story. <br/>
+Concrete type constructor is a factory of types. And as the method types, it does not have it's own memory.
+It's more like instructions rather than memory. <br/>
+Value types is something that can have it's own memory. <br/>
+Abstract types are something like interfaces. They have memory, but we can not create direct instances of them. <br/>
+In scala value classes are like java primitive types.
+The reference classes are like java ref types.
+In scala we don't have term `primitive`.
