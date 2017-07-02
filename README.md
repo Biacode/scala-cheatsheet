@@ -1005,3 +1005,10 @@ The direct supertype of null type are all reference types other than the null ty
 ![alt text](https://raw.githubusercontent.com/Biacode/scala-cheatsheet/master/img/java_types.png "Java types diagram")
 
 Our custom type should be something in between reference types and null type.
+
+# Specific 19
+Scala as well as other functional languages has rich type system. <br/>
+Which is drastically differs from the Java types. <br/>
+The diagram below shows hierarchy of the scala types.
+
+![alt text](https://raw.githubusercontent.com/Biacode/scala-cheatsheet/master/img/scala_types.png "Scala types diagram")
