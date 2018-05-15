@@ -745,7 +745,7 @@ println(I(1) ++ I(2) ++ I(3) ++ I(4))
 // 1 +: (2 +: (3 +: 4))
 println(I(1) +: I(2) +: I(3) +: I(4))
 ```
-If you are nerd enough and have reade the this part of specification.
+If you are nerd enough and have reade this part of specification.
 >A left-associative binary operation e1;op;e2e1;op;e2 is interpreted as e1.op(e2)e1.op(e2). If opop is right-associative, the same operation is interpreted as { val xx=e1e1; e2e2.opop(xx) }, where xx is a fresh name.
 ```scala
 // 1 ++ 2 ++ 3 ++ 4
